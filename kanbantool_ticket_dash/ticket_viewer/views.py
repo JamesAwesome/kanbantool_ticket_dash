@@ -1,8 +1,8 @@
 import os
 
-from . import main
+from . import ticket_viewer
 from flask import json, jsonify, current_app, render_template, request
 
-@main.route('/')
+@ticket_viewer.route('/')
 def index():
-    return render_template('index.html')
+    return 'This is the ticket viewer'
