@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% block title %} Ticket Viewer {% endblock %}
+{% block head %}
+  {{ super() }}
+  <style type="text/css">
+    .important { color: #336699; }
+  </style>
+{% endblock %}
+{% block content %}
+  <h1>Hello World!</h1>
+  <p class="important">
+    This is the ticket viewer API Key: {{ kanbantool_api_key }}
+  </p>
+    <a href="{{ url_for('main.index') }}"> Back </a>
+{% endblock %}

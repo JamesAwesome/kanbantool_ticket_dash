@@ -5,4 +5,4 @@ from flask import json, jsonify, current_app, render_template, request
 
 @main.route('/')
 def index():
-    return render_template('index.html')
+    return render_template('main/index.html')

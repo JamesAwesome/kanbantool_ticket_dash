@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+{% block title %} Shield Dashboard {% endblock %}
+{% block head %}
+  {{ super() }}
+  <style type="text/css">
+    .important { color: #336699; }
+  </style>
+{% endblock %}
+{% block content %}
+  <h1>Hello World!</h1>
+  <p class="important">
+    <a href="{{ url_for('ticket_viewer.index') }}"> View Tickets </a>
+{% endblock %}
