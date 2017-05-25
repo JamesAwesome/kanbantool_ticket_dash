@@ -9,7 +9,7 @@
 {% block content %}
   <h1>Ticket Viewer</h1>
   <p class="important">
-    This is the ticket viewer API Key: {{ kanbantool_api_key }}
+    <pre>{{ tickets }}</pre>
   </p>
     <a href="{{ url_for('main.index') }}"> Back </a>
 {% endblock %}
