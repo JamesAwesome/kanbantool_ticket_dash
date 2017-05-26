@@ -41,7 +41,7 @@
             <div class="divTableHead">Due Date</div>
             <div class="divTableHead">Blocked?</div>
           </div>
-        {% for ticket in unstarted_tickets %}
+        {% for ticket in sorted_tickets['unstarted'] %}
           <div class="divTableRow">
             <div class="divTableCell">{{ ticket['task']['id'] }}</div>
             <div class="divTableCell">{{ ticket['task']['name'] }}</div>
@@ -51,7 +51,7 @@
             <div class="divTableCell">{% if ticket['task']['block_reason'] %} True: {{ ticket['task']['block_reason'] }} {% else %} False {% endif %}</div>
           </div>
         {% endfor %}
-        {% for ticket in wip %}
+        {% for ticket in sorted_tickets['wip'] %}
           <div class="divTableRow">
             <div class="divTableCell">{{ ticket['task']['id'] }}</div>
             <div class="divTableCell">{{ ticket['task']['name'] }}</div>
@@ -61,7 +61,7 @@
             <div class="divTableCell">{% if ticket['task']['block_reason'] %} True: {{ ticket['task']['block_reason'] }} {% else %} False {% endif %}</div>
           </div>
         {% endfor %}
-        {% for ticket in done_tickets %}
+        {% for ticket in sorted_tickets['done'] %}
           <div class="divTableRow">
             <div class="divTableCell">{{ ticket['task']['id'] }}</div>
             <div class="divTableCell">{{ ticket['task']['name'] }}</div>

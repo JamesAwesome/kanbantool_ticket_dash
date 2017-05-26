@@ -31,6 +31,18 @@ def create_workflow_mapper():
     return { w['id']: w['name'] for w in workflow_stages }
 
 
+def sort_tickets(tickets, workflow_mapper, ticket_sorter):
+    unstarted = find_and_sort_unstarted_tickets(tickets, workflow_mapper, ticket_sorter)
+    wip       = find_and_sort_wip(tickets, workflow_mapper, ticket_sorter)
+    done      = find_and_sort_done_tickets(tickets, workflow_mapper, ticket_sorter)
+
+    return {
+        'unstarted': unstarted,
+        'wip': wip,
+        'done': done
+    }
+
+
 def make_ticket_sorter(workflow_mapper):
     all_lanes = current_app.config['KANBANTOOL_UNSTARTED_LANES'] + current_app.config['KANBANTOOL_WIP_LANES'] + current_app.config['KANBANTOOL_DONE_LANES']
     def wrapped(ticket):
