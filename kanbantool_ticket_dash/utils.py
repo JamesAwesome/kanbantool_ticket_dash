@@ -3,6 +3,7 @@ import os, json
 import requests
 from flask import current_app
 
+
 def fetch_tickets():
     r = requests.get(
             'https://{}.kanbantool.com/api/v1/boards/{}/tasks.json'.format(current_app.config['KANBANTOOL_ORG'], current_app.config['KANBANTOOL_BOARD_ID']),
@@ -21,6 +22,12 @@ def fetch_board_desc():
     return json.loads(r.text)
 
 
+def get_ticket_sort_key(ticket):
+    workflow_mapper = create_workflow_mapper()
+    all_lanes = current_app.config['KANBANTOOL_UNSTARTED_LANES'] + current_app.config['KANBANTOOL_WIP_LANES'] + current_app.config['KANBANTOOL_DONE_LANES']
+    return all_lanes.index(workflow_mapper[ticket['task']['workflow_stage_id']])
+
+
 def create_workflow_mapper():
     board_desc = fetch_board_desc()
     workflow_stages = board_desc['board']['workflow_stages']
@@ -28,12 +35,15 @@ def create_workflow_mapper():
 
 
 def find_unstarted_tickets(tickets, workflow_mapper):
-    return filter(lambda t: workflow_mapper[t['task']['workflow_stage_id']] in current_app.config['KANBANTOOL_UNSTARTED_LANES'], tickets)
+    unstarted_tickets = filter(lambda t: workflow_mapper[t['task']['workflow_stage_id']] in current_app.config['KANBANTOOL_UNSTARTED_LANES'], tickets)
+    return sorted(unstarted_tickets, key=get_ticket_sort_key)
 
 
 def find_wip(tickets, workflow_mapper):
-    return filter(lambda t: workflow_mapper[t['task']['workflow_stage_id']] in current_app.config['KANBANTOOL_WIP_LANES'], tickets)
+    wip_tickets = filter(lambda t: workflow_mapper[t['task']['workflow_stage_id']] in current_app.config['KANBANTOOL_WIP_LANES'], tickets)
+    return sorted(wip_tickets, key=get_ticket_sort_key)
 
 
 def find_done_tickets(tickets, workflow_mapper):
-    return filter(lambda t: workflow_mapper[t['task']['workflow_stage_id']] in current_app.config['KANBANTOOL_DONE_LANES'], tickets)
+    done_tickets = filter(lambda t: workflow_mapper[t['task']['workflow_stage_id']] in current_app.config['KANBANTOOL_DONE_LANES'], tickets)
+    return sorted(done_tickets, key=get_ticket_sort_key)
