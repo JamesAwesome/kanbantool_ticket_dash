@@ -9,7 +9,9 @@
 {% block content %}
   <h1>Ticket Viewer</h1>
   <p class="important">
-    <pre>{{ tickets }}</pre>
+    {% for ticket in tickets %}
+        <p>#{{ ticket['task']['id'] }}: {{ ticket['task']['name'] }} - {{ ticket['task'].get('assigned_user', {}).get('name', 'Unassigned') }} </p>
+    {% endfor %}
   </p>
     <a href="{{ url_for('main.index') }}"> Back </a>
 {% endblock %}

@@ -15,4 +15,4 @@ def fetch_tickets():
 
 @ticket_viewer.route('/')
 def index():
-    return render_template('ticket_viewer/index.html', tickets=json.dumps(fetch_tickets(), indent=4, sort_keys=True))
+    return render_template('ticket_viewer/index.html', tickets=fetch_tickets())
