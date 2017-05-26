@@ -28,12 +28,12 @@ def create_workflow_mapper():
 
 
 def find_unstarted_tickets(tickets, workflow_mapper):
-    return filter(lambda t: workflow_mapper[t['task']['workflow_stage_id']] in ['Backlog', 'Ready'], tickets)
+    return filter(lambda t: workflow_mapper[t['task']['workflow_stage_id']] in current_app.config['KANBANTOOL_UNSTARTED_LANES'], tickets)
 
 
 def find_wip(tickets, workflow_mapper):
-    return filter(lambda t: workflow_mapper[t['task']['workflow_stage_id']] not in ['Backlog', 'Ready', 'Done'], tickets)
+    return filter(lambda t: workflow_mapper[t['task']['workflow_stage_id']] in current_app.config['KANBANTOOL_WIP_LANES'], tickets)
 
 
 def find_done_tickets(tickets, workflow_mapper):
-    return filter(lambda t: workflow_mapper[t['task']['workflow_stage_id']] == 'Done', tickets)
+    return filter(lambda t: workflow_mapper[t['task']['workflow_stage_id']] in current_app.config['KANBANTOOL_DONE_LANES'], tickets)
