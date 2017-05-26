@@ -1,5 +1,6 @@
 import os, json
 
+import arrow
 import requests
 from flask import current_app
 
@@ -11,8 +12,12 @@ def fetch_tickets():
             params={'api_token': current_app.config['KANBANTOOL_API_KEY'], 'swimlane_id': current_app.config['KANBANTOOL_TICKET_SWIMLANE_ID'] }
         )
 
-    return json.loads(r.text)
+    tickets = json.loads(r.text)
 
+    for ticket in tickets:
+        ticket['task']['created_at'] = arrow.get(ticket['task']['created_at'])
+
+    return tickets
 
 @lru_cache(maxsize=100)
 def fetch_board_desc():

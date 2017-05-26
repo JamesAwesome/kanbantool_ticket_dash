@@ -35,6 +35,7 @@
         <div class="divTableBody">
           <div class="divTableRow">
             <div class="divTableHead">Ticket ID</div>
+            <div class="divTableHead">Created</div>
             <div class="divTableHead">Ticket Name</div>
             <div class="divTableHead">Assigned To</div>
             <div class="divTableHead">Progress</div>
@@ -44,6 +45,7 @@
         {% for ticket in sorted_tickets['unstarted'] %}
           <div class="divTableRow">
             <div class="divTableCell">{{ ticket['task']['id'] }}</div>
+            <div class="divTableCell">{{ ticket['task']['created_at'].date() }}</div>
             <div class="divTableCell">{{ ticket['task']['name'] }}</div>
             <div class="divTableCell">{{ ticket['task'].get('assigned_user', {}).get('name', 'Unassigned') }}</div>
             <div class="divTableCell">{{ workflow_mapper[ticket['task']['workflow_stage_id']] }}</div>
@@ -54,6 +56,7 @@
         {% for ticket in sorted_tickets['wip'] %}
           <div class="divTableRow">
             <div class="divTableCell">{{ ticket['task']['id'] }}</div>
+            <div class="divTableCell">{{ ticket['task']['created_at'].date() }}</div>
             <div class="divTableCell">{{ ticket['task']['name'] }}</div>
             <div class="divTableCell">{{ ticket['task'].get('assigned_user', {}).get('name', 'Unassigned') }}</div>
             <div class="divTableCell">{{ workflow_mapper[ticket['task']['workflow_stage_id']] }}</div>
@@ -64,6 +67,7 @@
         {% for ticket in sorted_tickets['done'] %}
           <div class="divTableRow">
             <div class="divTableCell">{{ ticket['task']['id'] }}</div>
+            <div class="divTableCell">{{ ticket['task']['created_at'].date() }}</div>
             <div class="divTableCell">{{ ticket['task']['name'] }}</div>
             <div class="divTableCell">{{ ticket['task'].get('assigned_user', {}).get('name', 'Unassigned') }}</div>
             <div class="divTableCell">{{ workflow_mapper[ticket['task']['workflow_stage_id']] }}</div>
