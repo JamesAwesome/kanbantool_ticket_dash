@@ -7,4 +7,7 @@ import requests
 
 @ticket_viewer.route('/')
 def index():
-    return render_template('ticket_viewer/index.html', tickets=utils.fetch_tickets())
+    return render_template(
+        'ticket_viewer/index.html',
+        tickets=utils.fetch_tickets(),
+        workflow_mapper=utils.create_workflow_mapper())

@@ -3,15 +3,52 @@
 {% block head %}
   {{ super() }}
   <style type="text/css">
-    .important { color: #336699; }
+    .divTable {
+        display: table;
+        width: 75%;
+        text-align: center;
+    }
+    .divTableRow {
+        display: table-row;
+    }
+    .divTableHead {
+        border: 1px solid #999999;
+        display: table-cell;
+        padding: 3px 10px;
+        background-color: #EEE;
+        font-weight: bold;
+    }
+    .divTableCell {
+        border: 1px solid #999999;
+        display: table-cell;
+        padding: 3px 10px;
+    }
+    .divTableBody {
+        display: table-row-group;
+    }
   </style>
 {% endblock %}
 {% block content %}
   <h1>Ticket Viewer</h1>
-  <p class="important">
-    {% for ticket in tickets %}
-        <p>#{{ ticket['task']['id'] }}: {{ ticket['task']['name'] }} - {{ ticket['task'].get('assigned_user', {}).get('name', 'Unassigned') }} </p>
-    {% endfor %}
-  </p>
+  <center>
+      <div class="divTable">
+        <div class="divTableBody">
+          <div class="divTableRow">
+            <div class="divTableHead">Ticket ID</div>
+            <div class="divTableHead">Ticket Name</div>
+            <div class="divTableHead">Assigned To</div>
+            <div class="divTableHead">Status</div>
+          </div>
+        {% for ticket in tickets %}
+          <div class="divTableRow">
+            <div class="divTableCell">{{ ticket['task']['id'] }}</div>
+            <div class="divTableCell">{{ ticket['task']['name'] }}</div>
+            <div class="divTableCell">{{ ticket['task'].get('assigned_user', {}).get('name', 'Unassigned') }}</div>
+            <div class="divTableCell">{{ workflow_mapper[ticket['task']['workflow_stage_id']] }}</div>
+          </div>
+        {% endfor %}
+        </div>
+      </div>
+    </center>
     <a href="{{ url_for('main.index') }}"> Back </a>
 {% endblock %}
