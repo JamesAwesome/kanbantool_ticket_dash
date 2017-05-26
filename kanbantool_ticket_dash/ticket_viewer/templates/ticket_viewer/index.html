@@ -37,7 +37,8 @@
             <div class="divTableHead">Ticket ID</div>
             <div class="divTableHead">Ticket Name</div>
             <div class="divTableHead">Assigned To</div>
-            <div class="divTableHead">Status</div>
+            <div class="divTableHead">Progress</div>
+            <div class="divTableHead">Blocked?</div>
           </div>
         {% for ticket in unstarted_tickets %}
           <div class="divTableRow">
@@ -45,6 +46,7 @@
             <div class="divTableCell">{{ ticket['task']['name'] }}</div>
             <div class="divTableCell">{{ ticket['task'].get('assigned_user', {}).get('name', 'Unassigned') }}</div>
             <div class="divTableCell">{{ workflow_mapper[ticket['task']['workflow_stage_id']] }}</div>
+            <div class="divTableCell">{% if ticket['task']['block_reason'] %} True: {{ ticket['task']['block_reason'] }} {% else %} False {% endif %}</div>
           </div>
         {% endfor %}
         {% for ticket in wip %}
@@ -53,6 +55,7 @@
             <div class="divTableCell">{{ ticket['task']['name'] }}</div>
             <div class="divTableCell">{{ ticket['task'].get('assigned_user', {}).get('name', 'Unassigned') }}</div>
             <div class="divTableCell">{{ workflow_mapper[ticket['task']['workflow_stage_id']] }}</div>
+            <div class="divTableCell">{% if ticket['task']['block_reason'] %} True: {{ ticket['task']['block_reason'] }} {% else %} False {% endif %}</div>
           </div>
         {% endfor %}
         {% for ticket in done_tickets %}
@@ -61,6 +64,7 @@
             <div class="divTableCell">{{ ticket['task']['name'] }}</div>
             <div class="divTableCell">{{ ticket['task'].get('assigned_user', {}).get('name', 'Unassigned') }}</div>
             <div class="divTableCell">{{ workflow_mapper[ticket['task']['workflow_stage_id']] }}</div>
+            <div class="divTableCell">{% if ticket['task']['block_reason'] %} True: {{ ticket['task']['block_reason'] }} {% else %} False {% endif %}</div>
           </div>
         {% endfor %}
         </div>
