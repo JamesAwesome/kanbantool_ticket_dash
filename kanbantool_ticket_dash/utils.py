@@ -46,7 +46,7 @@ def sort_tickets(tickets, workflow_mapper, ticket_sorter):
 def make_ticket_sorter(workflow_mapper):
     all_lanes = current_app.config['KANBANTOOL_UNSTARTED_LANES'] + current_app.config['KANBANTOOL_WIP_LANES'] + current_app.config['KANBANTOOL_DONE_LANES']
     def wrapped(ticket):
-        return all_lanes.index(workflow_mapper[ticket['task']['workflow_stage_id']])
+        return all_lanes.index(workflow_mapper[ticket['task']['workflow_stage_id']]), ticket['task']['id']
     return wrapped
 
 
