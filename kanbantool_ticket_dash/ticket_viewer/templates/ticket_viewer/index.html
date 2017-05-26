@@ -39,7 +39,23 @@
             <div class="divTableHead">Assigned To</div>
             <div class="divTableHead">Status</div>
           </div>
-        {% for ticket in tickets %}
+        {% for ticket in unstarted_tickets %}
+          <div class="divTableRow">
+            <div class="divTableCell">{{ ticket['task']['id'] }}</div>
+            <div class="divTableCell">{{ ticket['task']['name'] }}</div>
+            <div class="divTableCell">{{ ticket['task'].get('assigned_user', {}).get('name', 'Unassigned') }}</div>
+            <div class="divTableCell">{{ workflow_mapper[ticket['task']['workflow_stage_id']] }}</div>
+          </div>
+        {% endfor %}
+        {% for ticket in wip %}
+          <div class="divTableRow">
+            <div class="divTableCell">{{ ticket['task']['id'] }}</div>
+            <div class="divTableCell">{{ ticket['task']['name'] }}</div>
+            <div class="divTableCell">{{ ticket['task'].get('assigned_user', {}).get('name', 'Unassigned') }}</div>
+            <div class="divTableCell">{{ workflow_mapper[ticket['task']['workflow_stage_id']] }}</div>
+          </div>
+        {% endfor %}
+        {% for ticket in done_tickets %}
           <div class="divTableRow">
             <div class="divTableCell">{{ ticket['task']['id'] }}</div>
             <div class="divTableCell">{{ ticket['task']['name'] }}</div>
