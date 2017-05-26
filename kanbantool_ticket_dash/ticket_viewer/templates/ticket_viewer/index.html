@@ -5,7 +5,7 @@
   <style type="text/css">
     .divTable {
         display: table;
-        width: 75%;
+        width: 100%;
         text-align: center;
     }
     .divTableRow {
@@ -49,52 +49,52 @@
 {% block content %}
   <h1>Ticket Viewer</h1>
   <center>
-      <div class="divTable">
-        <div class="divTableBody">
-          <div class="divTableRow">
-            <div class="divTableHead">Ticket ID</div>
-            <div class="divTableHead">Created</div>
-            <div class="divTableHead">Ticket Name</div>
-            <div class="divTableHead">Assigned To</div>
-            <div class="divTableHead">Progress</div>
-            <div class="divTableHead">Due Date</div>
-            <div class="divTableHead">Blocked?</div>
-          </div>
-        {% for ticket in sorted_tickets['unstarted'] %}
-          <div class="divTableRow">
-            <div class="divTableCellUnstarted">{{ ticket['task']['id'] }}</div>
-            <div class="divTableCellUnstarted">{{ ticket['task']['created_at'].date() }}</div>
-            <div class="divTableCellUnstarted">{{ ticket['task']['name'] }}</div>
-            <div class="divTableCellUnstarted">{{ ticket['task'].get('assigned_user', {}).get('name', 'Unassigned') }}</div>
-            <div class="divTableCellUnstarted">{{ workflow_mapper[ticket['task']['workflow_stage_id']] }}</div>
-            <div class="divTableCellUnstarted">{{ ticket['task']['due_date'] or '∞' }}</div>
-            <div class="divTableCellUnstarted">{% if ticket['task']['block_reason'] %} True: {{ ticket['task']['block_reason'] }} {% else %} False {% endif %}</div>
-          </div>
-        {% endfor %}
-        {% for ticket in sorted_tickets['wip'] %}
-          <div class="divTableRow">
-            <div class="divTableCellWip">{{ ticket['task']['id'] }}</div>
-            <div class="divTableCellWip">{{ ticket['task']['created_at'].date() }}</div>
-            <div class="divTableCellWip">{{ ticket['task']['name'] }}</div>
-            <div class="divTableCellWip">{{ ticket['task'].get('assigned_user', {}).get('name', 'Unassigned') }}</div>
-            <div class="divTableCellWip">{{ workflow_mapper[ticket['task']['workflow_stage_id']] }}</div>
-            <div class="divTableCellWip">{{ ticket['task']['due_date'] or '∞' }}</div>
-            <div class="divTableCellWip">{% if ticket['task']['block_reason'] %} True: {{ ticket['task']['block_reason'] }} {% else %} False {% endif %}</div>
-          </div>
-        {% endfor %}
-        {% for ticket in sorted_tickets['done'] %}
-          <div class="divTableRow">
-            <div class="divTableCellDone">{{ ticket['task']['id'] }}</div>
-            <div class="divTableCellDone">{{ ticket['task']['created_at'].date() }}</div>
-            <div class="divTableCellDone">{{ ticket['task']['name'] }}</div>
-            <div class="divTableCellDone">{{ ticket['task'].get('assigned_user', {}).get('name', 'Unassigned') }}</div>
-            <div class="divTableCellDone">{{ workflow_mapper[ticket['task']['workflow_stage_id']] }}</div>
-            <div class="divTableCellDone">{{ ticket['task']['due_date'] or '∞' }}</div>
-            <div class="divTableCellDone">{% if ticket['task']['block_reason'] %} True: {{ ticket['task']['block_reason'] }} {% else %} False {% endif %}</div>
-          </div>
-        {% endfor %}
+    <div class="divTable">
+      <div class="divTableBody">
+        <div class="divTableRow">
+          <div class="divTableHead">Ticket ID</div>
+          <div class="divTableHead">Created</div>
+          <div class="divTableHead">Ticket Name</div>
+          <div class="divTableHead">Assigned To</div>
+          <div class="divTableHead">Progress</div>
+          <div class="divTableHead">Due Date</div>
+          <div class="divTableHead">Blocked?</div>
         </div>
+      {% for ticket in sorted_tickets['unstarted'] %}
+        <div class="divTableRow">
+          <div class="divTableCellUnstarted">{{ ticket['task']['id'] }}</div>
+          <div class="divTableCellUnstarted">{ticket['task']['created_at'].date() }}</div>
+          <div class="divTableCellUnstarted">{{ ticket['task']['name'] }}</div>
+          <div class="divTableCellUnstarted">{ticket['task'].get('assigned_user', {}).get('name', 'Unassigned') }}div>
+          <div class="divTableCellUnstarted">{{ workflow_mappeticket['task']['workflow_stage_id']] }}</div>
+          <div class="divTableCellUnstarted">{{ ticket['task']['due_date'] o'∞' }}</div>
+          <div class="divTableCellUnstarted">{% iticket['task']['block_reason'] %} True: {ticket['task']['block_reason'] }} {% else %} False {% endif %}</div>
+        </div>
+      {% endfor %}
+      {% for ticket in sorted_tickets['wip'] %}
+        <div class="divTableRow">
+          <div class="divTableCellWip">{{ ticket['task']['id'] }}</div>
+          <div class="divTableCellWip">{{ ticket['task']['created_at'].date() </div>
+          <div class="divTableCellWip">{{ ticket['task']['name'] }}</div>
+          <div class="divTableCellWip">{{ ticket['task'].get('assigned_user'{}).get('name', 'Unassigned') }}</div>
+          <div class="divTableCellWip">{{ workflow_mappeticket['task']['workflow_stage_id']] }}</div>
+          <div class="divTableCellWip">{{ ticket['task']['due_date'] or '∞' }}div>
+          <div class="divTableCellWip">{% if ticket['task']['block_reason'] %True: {{ ticket['task']['block_reason'] }} {% else %} False {% endi%}</div>
+        </div>
+      {% endfor %}
+      {% for ticket in sorted_tickets['done'] %}
+        <div class="divTableRow">
+          <div class="divTableCellDone">{{ ticket['task']['id'] }}</div>
+          <div class="divTableCellDone">{{ ticket['task']['created_at'].date(}}</div>
+          <div class="divTableCellDone">{{ ticket['task']['name'] }}</div>
+          <div class="divTableCellDone">{{ ticket['task'].get('assigned_user'{}).get('name', 'Unassigned') }}</div>
+          <div class="divTableCellDone">{{ workflow_mappeticket['task']['workflow_stage_id']] }}</div>
+          <div class="divTableCellDone">{{ ticket['task']['due_date'] or '∞' </div>
+          <div class="divTableCellDone">{% if ticket['task']['block_reason'] %True: {{ ticket['task']['block_reason'] }} {% else %} False {% endi%}</div>
+        </div>
+      {% endfor %}
       </div>
-    </center>
-    <a href="{{ url_for('main.index') }}"> Back </a>
+    </div>
+  </center>
+  <a href="{{ url_for('main.index') }}"> Back </a>
 {% endblock %}
