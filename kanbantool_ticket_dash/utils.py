@@ -3,6 +3,7 @@ import os, json
 import requests
 from flask import current_app
 
+from functools import lru_cache
 
 def fetch_tickets():
     r = requests.get(
@@ -13,6 +14,7 @@ def fetch_tickets():
     return json.loads(r.text)
 
 
+@lru_cache(maxsize=100)
 def fetch_board_desc():
     r = requests.get(
             'https://{}.kanbantool.com/api/v1/boards/{}.json'.format(current_app.config['KANBANTOOL_ORG'], current_app.config['KANBANTOOL_BOARD_ID']),
@@ -22,16 +24,17 @@ def fetch_board_desc():
     return json.loads(r.text)
 
 
-def get_ticket_sort_key(ticket):
-    workflow_mapper = create_workflow_mapper()
-    all_lanes = current_app.config['KANBANTOOL_UNSTARTED_LANES'] + current_app.config['KANBANTOOL_WIP_LANES'] + current_app.config['KANBANTOOL_DONE_LANES']
-    return all_lanes.index(workflow_mapper[ticket['task']['workflow_stage_id']])
-
-
+@lru_cache(maxsize=100)
 def create_workflow_mapper():
     board_desc = fetch_board_desc()
     workflow_stages = board_desc['board']['workflow_stages']
     return { w['id']: w['name'] for w in workflow_stages }
+
+
+def get_ticket_sort_key(ticket):
+    workflow_mapper = create_workflow_mapper()
+    all_lanes = current_app.config['KANBANTOOL_UNSTARTED_LANES'] + current_app.config['KANBANTOOL_WIP_LANES'] + current_app.config['KANBANTOOL_DONE_LANES']
+    return all_lanes.index(workflow_mapper[ticket['task']['workflow_stage_id']])
 
 
 def find_unstarted_tickets(tickets, workflow_mapper):
