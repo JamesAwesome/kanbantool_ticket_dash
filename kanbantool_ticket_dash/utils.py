@@ -31,22 +31,23 @@ def create_workflow_mapper():
     return { w['id']: w['name'] for w in workflow_stages }
 
 
-def get_ticket_sort_key(ticket):
-    workflow_mapper = create_workflow_mapper()
+def make_ticket_sorter(workflow_mapper):
     all_lanes = current_app.config['KANBANTOOL_UNSTARTED_LANES'] + current_app.config['KANBANTOOL_WIP_LANES'] + current_app.config['KANBANTOOL_DONE_LANES']
-    return all_lanes.index(workflow_mapper[ticket['task']['workflow_stage_id']])
+    def wrapped(ticket):
+        return all_lanes.index(workflow_mapper[ticket['task']['workflow_stage_id']])
+    return wrapped
 
 
-def find_unstarted_tickets(tickets, workflow_mapper):
+def find_and_sort_unstarted_tickets(tickets, workflow_mapper, ticket_sorter):
     unstarted_tickets = filter(lambda t: workflow_mapper[t['task']['workflow_stage_id']] in current_app.config['KANBANTOOL_UNSTARTED_LANES'], tickets)
-    return sorted(unstarted_tickets, key=get_ticket_sort_key)
+    return sorted(unstarted_tickets, key=ticket_sorter)
 
 
-def find_wip(tickets, workflow_mapper):
+def find_and_sort_wip(tickets, workflow_mapper, ticket_sorter):
     wip_tickets = filter(lambda t: workflow_mapper[t['task']['workflow_stage_id']] in current_app.config['KANBANTOOL_WIP_LANES'], tickets)
-    return sorted(wip_tickets, key=get_ticket_sort_key)
+    return sorted(wip_tickets, key=ticket_sorter)
 
 
-def find_done_tickets(tickets, workflow_mapper):
+def find_and_sort_done_tickets(tickets, workflow_mapper, ticket_sorter):
     done_tickets = filter(lambda t: workflow_mapper[t['task']['workflow_stage_id']] in current_app.config['KANBANTOOL_DONE_LANES'], tickets)
-    return sorted(done_tickets, key=get_ticket_sort_key)
+    return sorted(done_tickets, key=ticket_sorter)
