@@ -8,8 +8,14 @@ from functools import lru_cache
 
 def fetch_tickets():
     r = requests.get(
-            'https://{}.kanbantool.com/api/v1/boards/{}/tasks.json'.format(current_app.config['KANBANTOOL_ORG'], current_app.config['KANBANTOOL_BOARD_ID']),
-            params={'api_token': current_app.config['KANBANTOOL_API_KEY'], 'swimlane_id': current_app.config['KANBANTOOL_TICKET_SWIMLANE_ID'] }
+            'https://{}.kanbantool.com/api/v1/boards/{}/tasks.json'.format(
+                current_app.config['KANBANTOOL_ORG'],
+                current_app.config['KANBANTOOL_BOARD_ID']
+            ),
+            params={
+                'api_token': current_app.config['KANBANTOOL_API_KEY'],
+                'swimlane_id': current_app.config['KANBANTOOL_TICKET_SWIMLANE_ID'],
+            }
         )
 
     tickets = json.loads(r.text)
@@ -19,11 +25,17 @@ def fetch_tickets():
 
     return tickets
 
+
 @lru_cache(maxsize=100)
 def fetch_board_desc():
     r = requests.get(
-            'https://{}.kanbantool.com/api/v1/boards/{}.json'.format(current_app.config['KANBANTOOL_ORG'], current_app.config['KANBANTOOL_BOARD_ID']),
-            params={'api_token': current_app.config['KANBANTOOL_API_KEY']}
+            'https://{}.kanbantool.com/api/v1/boards/{}.json'.format(
+                current_app.config['KANBANTOOL_ORG'],
+                current_app.config['KANBANTOOL_BOARD_ID'],
+            ),
+            params={
+                'api_token': current_app.config['KANBANTOOL_API_KEY'],
+            }
         )
 
     return json.loads(r.text)
@@ -48,10 +60,16 @@ def sort_tickets(tickets, workflow_mapper, ticket_sorter):
     }
 
 
+def all_work_lanes():
+    return current_app.config['KANBANTOOL_UNSTARTED_LANES'] + \
+        current_app.config['KANBANTOOL_WIP_LANES'] + \
+        current_app.config['KANBANTOOL_DONE_LANES']
+
+
 def make_ticket_sorter(workflow_mapper):
-    all_lanes = current_app.config['KANBANTOOL_UNSTARTED_LANES'] + current_app.config['KANBANTOOL_WIP_LANES'] + current_app.config['KANBANTOOL_DONE_LANES']
     def wrapped(ticket):
-        return all_lanes.index(workflow_mapper[ticket['task']['workflow_stage_id']]), ticket['task']['id']
+        workflow_stage = workflow_mapper[ticket['task']['workflow_stage_id']]
+        return all_work_lanes().index(workflow_stage), ticket['task']['id']
     return wrapped
 
 

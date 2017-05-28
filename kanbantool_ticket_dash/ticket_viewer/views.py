@@ -5,6 +5,7 @@ from . import ticket_viewer
 from flask import current_app, render_template, request
 import requests
 
+
 @ticket_viewer.route('/')
 def index():
     workflow_mapper = utils.create_workflow_mapper()
