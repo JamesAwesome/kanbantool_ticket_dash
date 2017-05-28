@@ -1,4 +1,4 @@
-from kanbantool_ticket_dash import create_app, utils
+from kanbantool_ticket_dash import utils
 
 
 def test_all_work_lanes(app):
