@@ -7,10 +7,11 @@
   </head>
   <body>
     <div id="content">{% block content %}{% endblock %}</div>
+    <p>
     <div id="footer">
       {% block footer %}
         <center>
-          &copy; Copyright 2017 by <a href="https://github.com/jamesawesome">James Awesome</a>.
+          <a href="{{ url_for('main.index') }}"> Home </a>
         </center>
       {% endblock %}
     </div>

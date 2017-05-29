@@ -8,10 +8,16 @@
 {% endblock %}
 {% block content %}
   <h1>Welcome to the Shield Dashboard!</h1>
-  <p class="important" align="center">
-    <a href="{{ url_for('ticket_viewer.index') }}"> View Tickets </a>
-  </p>
-  <p class="important" align="center">
-    <a href="{{ url_for('ticket_submitter.index') }}"> Submit Ticket </a>
-  </p>
+  <center>
+    <table>
+      <tbody>
+        <tr>
+          <td><a href="{{ url_for('ticket_submitter.index') }}">Submit Ticket</a></td>
+          <td><a href="{{ url_for('ticket_viewer.index') }}">View Tickets</a></td>
+        </tr>
+      </tbody>
+    </table>
+  </center>
+  {% block footer %}
+  {% endblock %}
 {% endblock %}
