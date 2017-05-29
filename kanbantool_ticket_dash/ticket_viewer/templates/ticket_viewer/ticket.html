@@ -41,7 +41,7 @@
         </div>
         <div class="divTableRow">
           <div class="divTableCell">Assigned To</div>
-          <div class="divTableCell">{{ ticket['task']['assigned_user']['name'] or 'Unknown' }}</div>
+          <div class="divTableCell">{{ ticket['task'].get('assigned_user', {})['name'] or 'Unknown' }}</div>
         </div>
         <div class="divTableRow">
           <div class="divTableCell">Due Date</div>
