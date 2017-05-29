@@ -26,6 +26,25 @@ def fetch_tickets():
     return tickets
 
 
+def fetch_ticket(ticket_id):
+    r = requests.get(
+            'https://{}.kanbantool.com/api/v1/boards/{}/tasks/{}.json'.format(
+                current_app.config['KANBANTOOL_ORG'],
+                current_app.config['KANBANTOOL_BOARD_ID'],
+                ticket_id,
+            ),
+            params={
+                'api_token': current_app.config['KANBANTOOL_API_KEY'],
+            }
+        )
+
+    ticket = json.loads(r.text)
+
+    ticket['task']['created_at'] = arrow.get(ticket['task']['created_at'])
+
+    return ticket
+
+
 def fetch_board_desc():
     r = requests.get(
             'https://{}.kanbantool.com/api/v1/boards/{}.json'.format(

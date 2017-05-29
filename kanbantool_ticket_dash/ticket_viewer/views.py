@@ -18,3 +18,8 @@ def index():
         sorted_tickets=sorted_tickets,
         workflow_mapper=workflow_mapper
     )
+
+
+@ticket_viewer.route('/<ticket_id>')
+def ticket(ticket_id):
+    return json.dumps(utils.fetch_ticket(ticket_id), default=str)

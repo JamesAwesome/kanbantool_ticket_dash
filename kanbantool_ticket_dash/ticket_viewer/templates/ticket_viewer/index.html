@@ -62,7 +62,7 @@
         </div>
       {% for ticket in sorted_tickets['unstarted'] %}
         <div class="divTableRow">
-          <div class="divTableCellUnstarted">{{ ticket['task']['id'] }}</div>
+          <div class="divTableCellUnstarted"><a href="{{url_for('ticket_viewer.ticket', ticket_id=ticket['task']['id'])}}">{{ ticket['task']['id'] }}</a></div>
           <div class="divTableCellUnstarted">{{ ticket['task']['created_at'].date() }}</div>
           <div class="divTableCellUnstarted">{{ ticket['task']['name'] }}</div>
           <div class="divTableCellUnstarted">{{ ticket['task'].get('assigned_user', {}).get('name', 'Unassigned') }}</div>
@@ -73,7 +73,7 @@
       {% endfor %}
       {% for ticket in sorted_tickets['wip'] %}
         <div class="divTableRow">
-          <div class="divTableCellWip">{{ ticket['task']['id'] }}</div>
+          <div class="divTableCellWip"><a href="{{url_for('ticket_viewer.ticket', ticket_id=ticket['task']['id'])}}">{{ ticket['task']['id'] }}</a></div>
           <div class="divTableCellWip">{{ ticket['task']['created_at'].date() }}</div>
           <div class="divTableCellWip">{{ ticket['task']['name'] }}</div>
           <div class="divTableCellWip">{{ ticket['task'].get('assigned_user', {}).get('name', 'Unassigned') }}</div>
@@ -84,7 +84,7 @@
       {% endfor %}
       {% for ticket in sorted_tickets['done'] %}
         <div class="divTableRow">
-          <div class="divTableCellDone">{{ ticket['task']['id'] }}</div>
+          <div class="divTableCellDone"><a href="{{url_for('ticket_viewer.ticket', ticket_id=ticket['task']['id'])}}">{{ ticket['task']['id'] }}</a></div>
           <div class="divTableCellDone">{{ ticket['task']['created_at'].date() }}</div>
           <div class="divTableCellDone">{{ ticket['task']['name'] }}</div>
           <div class="divTableCellDone">{{ ticket['task'].get('assigned_user', {}).get('name', 'Unassigned') }}</div>
