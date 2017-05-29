@@ -1,0 +1,67 @@
+{% extends "base.html" %}
+{% block title %} Shield Ticket Viewer {% endblock %}
+{% block head %}
+  {{ super() }}
+  <style type="text/css">
+    .divTable {
+        display: table;
+        width: auto;
+        text-align: left;
+    }
+    .divTableRow {
+        display: table-row;
+    }
+    .divTableHead {
+        display: table-cell;
+        padding: 3px 10px;
+        background-color: #EEE;
+        font-weight: bold;
+    }
+    .divTableCell {
+        display: table-cell;
+        padding: 3px 10px;
+    }
+    .divTableBody {
+        display: table-row-group;
+    }
+  </style>
+{% endblock %}
+{% block content %}
+  <h1>Ticket Viewer</h1>
+  <center>
+    <div class="divTable">
+      <div class="divTableBody">
+        <div class="divTableRow">
+          <div class="divTableCell">ID</div>
+          <div class="divTableCell">{{ ticket['task']['id'] }}</div>
+        </div>
+        <div class="divTableRow">
+          <div class="divTableCell">Title</div>
+          <div class="divTableCell">{{ ticket['task']['name'] }}</div>
+        </div>
+        <div class="divTableRow">
+          <div class="divTableCell">Assigned To</div>
+          <div class="divTableCell">{{ ticket['task']['assigned_user']['name'] or 'Unknown' }}</div>
+        </div>
+        <div class="divTableRow">
+          <div class="divTableCell">Due Date</div>
+          <div class="divTableCell">{{ ticket['task']['due_date'] or '∞' }}</div>
+        </div>
+        <div class="divTableRow">
+          <div class="divTableCell">Blocked</div>
+          <div class="divTableCell">{% if ticket['task']['block_reason'] %} True: {{ ticket['task']['block_reason'] }} {% else %} False {% endif %}</div>
+        </div>
+        <div class="divTableRow">
+          <div class="divTableCell">Progress</div>
+          <div class="divTableCell">{{ workflow_mapper[ticket['task']['workflow_stage_id']] }}</div>
+        </div>
+        <div class="divTableRow">
+          <div class="divTableCell">Description</div>
+          <div class="divTableCell">{{ ticket['task']['description'] | safe }}</div>
+        </div>
+      </div>
+    </div>
+    <p>
+    <a href="{{ url_for('ticket_viewer.index')}}">View Tickers</a>
+  </center>
+{% endblock %}

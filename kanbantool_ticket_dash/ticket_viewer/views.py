@@ -22,4 +22,10 @@ def index():
 
 @ticket_viewer.route('/<ticket_id>')
 def ticket(ticket_id):
-    return json.dumps(utils.fetch_ticket(ticket_id), default=str)
+    ticket = utils.fetch_ticket(ticket_id)
+    workflow_mapper = utils.create_workflow_mapper()
+    return render_template(
+        'ticket_viewer/ticket.html',
+        ticket=ticket,
+        workflow_mapper=workflow_mapper,
+    )
