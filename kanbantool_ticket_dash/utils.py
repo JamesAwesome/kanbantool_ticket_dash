@@ -26,7 +26,6 @@ def fetch_tickets():
     return tickets
 
 
-@lru_cache(maxsize=100)
 def fetch_board_desc():
     r = requests.get(
             'https://{}.kanbantool.com/api/v1/boards/{}.json'.format(
@@ -60,6 +59,7 @@ def sort_tickets(tickets, workflow_mapper, ticket_sorter):
     }
 
 
+@lru_cache(maxsize=100)
 def all_work_lanes():
     return current_app.config['KANBANTOOL_UNSTARTED_LANES'] + \
         current_app.config['KANBANTOOL_WIP_LANES'] + \
