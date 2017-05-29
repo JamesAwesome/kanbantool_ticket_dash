@@ -2,39 +2,55 @@
 {% block title %} Shield Ticket Submitter {% endblock %}
 {% block head %}
 {{ super() }}
+  <style type="text/css">
+    .form {
+        display: table;
+        width: auto;
+        text-align: left;
+    }
+    .formRow {
+        display: table-row;
+    }
+    .formCell {
+        vertical-align: top;
+        display: table-cell;
+        padding: 3px 10px;
+    }
+    .formBody {
+        display: table-row-group;
+    }
+    textarea {
+        resize: none;
+    }
+  </style>
 <h1>Ticket Submitter</h1>
 {% endblock %}
 {% block content %}
 <center>
-<div class="form">
-<form method="POST" action="{{ url_for('ticket_submitter.index') }}">
-    {{ form.hidden_tag() }}
-
-  <div class="title">
-    {{ form.title.label }}:
-    {{ form.title(cols="20", rows="1") }}
-  </div>
-
-  <div class="submitted_by">
-    {{ form.submitted_by.label }}:
-    {{ form.submitted_by(cols="20", rows="1") }}
-  </div>
-
-  <div class="due_date">
-    {{ form.due_date.label }}:
-    {{ form.due_date(cols="20", rows="1") }}
-  </div>
-
-  <div class="description">
-    {{ form.description.label }}:
-    {{ form.description(cols="65", rows="20") }}
-  </div>
-  <p>
-  <div class="form_bottom">
+  <form method="POST" action="{{ url_for('ticket_submitter.index') }}">
+  {{ form.hidden_tag() }}
+    <div class="form">
+      <div class="formBody">
+        <div class="formRow">
+          <div class="formCell">{{form.title.label }}</div>
+          <div class="formCell">{{ form.title(size="65") }}</div>
+        </div>
+        <div class="formRow">
+          <div class="formCell">{{ form.submitted_by.label }}</div>
+          <div class="formCell">{{ form.submitted_by(size="65") }}</div>
+        </div>
+        <div class="formRow">
+          <div class="formCell">{{ form.due_date.label }}</div>
+          <div class="formCell">{{ form.due_date(size="65") }}</div>
+        </div>
+        <div class="formRow">
+          <div class="formCell">{{ form.description.label }}</div>
+          <div class="formCell">{{ form.description(cols="63", rows="20") }}</div>
+        </div>
+      </div>
+    </div>
     <input type="submit" value="Submit" size="500">
-  </div>
-</form>
-</div>
+  </form>
 </center>
 <p>
 <a href="{{ url_for('main.index') }}"> Back </a>
