@@ -50,7 +50,7 @@ def create_ticket(name, description, submitted_by, due_date):
                 'api_token': current_app.config['KANBANTOOL_API_KEY'],
                 'task[swimlane_id]': current_app.config['KANBANTOOL_TICKET_SWIMLANE_ID'],
                 'task[name]': name,
-                'task[description]': description + "\n Submitted By: {}".format(submitted_by),
+                'task[description]': description + '\n Submitted By: {}'.format(submitted_by),
                 'task[due_date]': due_date,
             }
         )

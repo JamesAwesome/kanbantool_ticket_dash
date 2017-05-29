@@ -1,5 +1,6 @@
 import os, json
 
+from kanbantool_ticket_dash import utils
 from . import ticket_submitter
 from .form import TicketSubmitForm
 from flask import current_app, render_template
@@ -15,9 +16,12 @@ def index():
         due_date     = ticket_form.due_date.data
         description  = ticket_form.description.data
 
+        ticket = utils.create_ticket(title, description, submitted_by, due_date)
+
         return render_template(
             'ticket_submitter/thank_you.html',
-            form=ticket_form
+            form=ticket_form,
+            ticket=ticket,
         )
 
     return render_template(

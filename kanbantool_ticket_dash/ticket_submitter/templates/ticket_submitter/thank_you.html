@@ -31,52 +31,27 @@
     <div class="form">
       <div class="formBody">
         <div class="formRow">
-          <div class="formCell">{{ form.title.label }}</div>
-          <div class="formCell">{{ form.title.data }}</div>
-          <div class="formCell">
-            {% if form.title.errors %}
-              {% for error in form.title.errors %}
-                <li>{{ error }}</li>
-              {% endfor %}
-            {% endif %}
-          </div>
+          <div class="formCell">ID</div>
+          <div class="formCell">{{ ticket['task']['id'] }}</div>
         </div>
         <div class="formRow">
-          <div class="formCell">{{ form.submitted_by.label }}</div>
-          <div class="formCell">{{ form.submitted_by.data }}</div>
-          <div class="formCell">
-            {% if form.submitted_by.errors %}
-              {% for error in form.submitted_by.errors %}
-                <li>{{ error }}</li>
-              {% endfor %}
-            {% endif %}
-          </div>
+          <div class="formCell">{{ form.title.label }}</div>
+          <div class="formCell">{{ ticket['task']['name'] }}</div>
         </div>
         <div class="formRow">
           <div class="formCell">{{ form.due_date.label }}</div>
-          <div class="formCell">{{ form.due_date.data }}</div>
-          <div class="formCell">
-            {% if form.due_date.errors %}
-              {% for error in form.due_date.errors %}
-                <li>{{ error }}</li>
-              {% endfor %}
-            {% endif %}
-          </div>
+          <div class="formCell">{{ ticket['task']['due_date'] or '∞' }}</div>
         </div>
         <div class="formRow">
           <div class="formCell">{{ form.description.label }}</div>
-          <div class="formCell">{{ form.description.data }}</div>
-          <div class="formCell">
-            {% if form.description.errors %}
-              {% for error in form.description.errors %}
-                <li>{{ error }}</li>
-              {% endfor %}
-            {% endif %}
-          </div>
+          <div class="formCell">{{ ticket['task']['description'] }}</div>
         </div>
       </div>
     </div>
   </form>
+  <p>
+  <a href="{{ url_for('ticket_submitter.index') }}"> Submit Another </a>
+  <a href="{{ url_for('ticket_viewer.index') }}"> View Tickets </a>
 </center>
 <p>
 <a href="{{ url_for('main.index') }}"> Back </a>
