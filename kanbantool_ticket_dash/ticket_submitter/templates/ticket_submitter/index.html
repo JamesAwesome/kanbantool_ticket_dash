@@ -32,20 +32,48 @@
     <div class="form">
       <div class="formBody">
         <div class="formRow">
-          <div class="formCell">{{form.title.label }}</div>
+          <div class="formCell">{{ form.title.label }}</div>
           <div class="formCell">{{ form.title(size="65") }}</div>
+          <div class="formCell">
+            {% if form.title.errors %}
+              {% for error in form.title.errors %}
+                <li>{{ error }}</li>
+              {% endfor %}
+            {% endif %}
+          </div>
         </div>
         <div class="formRow">
           <div class="formCell">{{ form.submitted_by.label }}</div>
           <div class="formCell">{{ form.submitted_by(size="65") }}</div>
+          <div class="formCell">
+            {% if form.submitted_by.errors %}
+              {% for error in form.submitted_by.errors %}
+                <li>{{ error }}</li>
+              {% endfor %}
+            {% endif %}
+          </div>
         </div>
         <div class="formRow">
           <div class="formCell">{{ form.due_date.label }}</div>
           <div class="formCell">{{ form.due_date(size="65") }}</div>
+          <div class="formCell">
+            {% if form.due_date.errors %}
+              {% for error in form.due_date.errors %}
+                <li>{{ error }}</li>
+              {% endfor %}
+            {% endif %}
+          </div>
         </div>
         <div class="formRow">
           <div class="formCell">{{ form.description.label }}</div>
           <div class="formCell">{{ form.description(cols="63", rows="20") }}</div>
+          <div class="formCell">
+            {% if form.description.errors %}
+              {% for error in form.description.errors %}
+                <li>{{ error }}</li>
+              {% endfor %}
+            {% endif %}
+          </div>
         </div>
       </div>
     </div>
