@@ -40,6 +40,24 @@ def fetch_board_desc():
     return json.loads(r.text)
 
 
+def create_ticket(name, description, submitted_by, due_date):
+    r = requests.post(
+            'https://{}.kanbantool.com/api/v1/boards/{}/tasks.json'.format(
+                current_app.config['KANBANTOOL_ORG'],
+                current_app.config['KANBANTOOL_BOARD_ID']
+            ),
+            params={
+                'api_token': current_app.config['KANBANTOOL_API_KEY'],
+                'task[swimlane_id]': current_app.config['KANBANTOOL_TICKET_SWIMLANE_ID'],
+                'task[name]': name,
+                'task[description]': description + "\n Submitted By: {}".format(submitted_by),
+                'task[due_date]': due_date,
+            }
+        )
+
+    return json.loads(r.text)
+
+
 @lru_cache(maxsize=100)
 def create_workflow_mapper():
     board_desc = fetch_board_desc()
