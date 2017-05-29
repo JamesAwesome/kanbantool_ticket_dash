@@ -5,4 +5,4 @@ from flask import current_app, render_template
 
 @ticket_submitter.route('/')
 def index():
-    return "Hello World!"
+    return render_template('ticket_submitter/index.html')

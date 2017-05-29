@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+{% block title %} Shield Ticket Submitter {% endblock %}
+{% block head %}
+{{ super() }}
+<h1>Ticket Submitter</h1>
+{% endblock %}
+{% block content %}
+Hello World!
+<p>
+<a href="{{ url_for('main.index') }}"> Back </a>
+{% endblock %}
