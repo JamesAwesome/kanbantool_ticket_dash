@@ -15,12 +15,10 @@ def index():
         due_date     = ticket_form.due_date.data
         description  = ticket_form.description.data
 
-        return '''
-            title = {} <p>
-            submitted by = {} <p>
-            due_date = {} <p>
-            description = {} <p>
-        '''.format(title, submitted_by, due_date, description)
+        return render_template(
+            'ticket_submitter/thank_you.html',
+            form=ticket_form
+        )
 
     return render_template(
         'ticket_submitter/index.html',
