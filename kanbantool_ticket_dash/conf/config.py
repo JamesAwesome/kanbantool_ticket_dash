@@ -12,6 +12,7 @@ class Config:
     KANBANTOOL_UNSTARTED_LANES    = os.environ.get('KANBANTOOL_UNSTARTED_LANES') or ['Backlog', 'Ready']
     KANBANTOOL_WIP_LANES          = os.environ.get('KANBANTOOL_WIP_LANES') or ['Started', 'In Dev', 'In Prod']
     KANBANTOOL_DONE_LANES         = os.environ.get('KANBANTOOL_DONE_LANES') or ['Done']
+    SECRET_KEY                    = os.environ.get('CSRF_SECRET_KEY')
 
 
 class TestingConfig(Config):
@@ -19,6 +20,7 @@ class TestingConfig(Config):
     KANBANTOOL_UNSTARTED_LANES    = ['Backlog', 'Ready']
     KANBANTOOL_WIP_LANES          = ['Started', 'In Dev', 'In Prod']
     KANBANTOOL_DONE_LANES         = ['Done']
+
 
 config = {
     'default': Config,

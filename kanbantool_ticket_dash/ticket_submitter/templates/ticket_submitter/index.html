@@ -5,7 +5,37 @@
 <h1>Ticket Submitter</h1>
 {% endblock %}
 {% block content %}
-Hello World!
+<center>
+<div class="form">
+<form method="POST" action="{{ url_for('ticket_submitter.index') }}">
+    {{ form.hidden_tag() }}
+
+  <div class="title">
+    {{ form.title.label }}:
+    {{ form.title(cols="20", rows="1") }}
+  </div>
+
+  <div class="submitted_by">
+    {{ form.submitted_by.label }}:
+    {{ form.submitted_by(cols="20", rows="1") }}
+  </div>
+
+  <div class="due_date">
+    {{ form.due_date.label }}:
+    {{ form.due_date(cols="20", rows="1") }}
+  </div>
+
+  <div class="description">
+    {{ form.description.label }}:
+    {{ form.description(cols="65", rows="20") }}
+  </div>
+  <p>
+  <div class="form_bottom">
+    <input type="submit" value="Submit" size="500">
+  </div>
+</form>
+</div>
+</center>
 <p>
 <a href="{{ url_for('main.index') }}"> Back </a>
 {% endblock %}
