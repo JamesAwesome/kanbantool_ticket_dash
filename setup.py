@@ -12,6 +12,7 @@ setup(
         'Flask >= 0.12.2, < 0.13',
         'Flask-Script >= 2.0.5, < 2.1',
         'Flask-WTF >= 0.14.2, < 0.15',
-        'requests >= 2.14.2, < 2.15'
+        'requests >= 2.14.2, < 2.15',
+        'gunicorn >= 19.7.1, < 19.8'
     ]
 )
