@@ -59,6 +59,17 @@
           <div class="divTableCell">Description</div>
           <div class="divTableCell">{{ ticket['task']['description'] | safe }}</div>
         </div>
+        <div class="divTableRow">
+          <div class="divTableCell">Comments</div>
+          <div class="divTableCell">
+            {% for comment in ticket['task']['comments'] %}
+              {{ comment['user']['name'] }} - {{ comment['created_at'].humanize() }}
+              <p>
+              {{ comment['content'] }}
+              <p>
+            {% endfor %}
+          </div>
+        </div>
       </div>
     </div>
     <p>

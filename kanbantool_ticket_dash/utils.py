@@ -42,6 +42,9 @@ def fetch_ticket(ticket_id):
 
     ticket['task']['created_at'] = arrow.get(ticket['task']['created_at'])
 
+    for comment in ticket['task']['comments']:
+        comment['created_at'] = arrow.get(comment['created_at'])
+
     return ticket
 
 
