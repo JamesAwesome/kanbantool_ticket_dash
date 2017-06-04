@@ -15,7 +15,7 @@ class Config:
     SECRET_KEY                    = os.environ.get('CSRF_SECRET_KEY')
     SLACK_TOKEN                   = os.environ.get('SLACK_TOKEN') or False
     SLACK_CHANNEL                 = os.environ.get('SLACK_CHANNEL') or '#general'
-    SLACK_NOTIFY                  = os.environ.get('SLACK_CHANNEL') or ''
+    SLACK_NOTIFY                  = os.environ.get('SLACK_NOTIFY') or False
 
 
 class TestingConfig(Config):

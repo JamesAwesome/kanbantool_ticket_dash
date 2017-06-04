@@ -21,7 +21,7 @@ def index():
         if current_app.config['SLACK_TOKEN']:
             sc = utils.make_slackclient()
             utils.post_slack_message(sc,
-                'Ticket: {}, {}: Has been Submitted by {}'.format(
+                'Ticket: #{}, "{}" | Has been Submitted by {}'.format(
                     ticket['task']['id'],
                     title,
                     submitted_by

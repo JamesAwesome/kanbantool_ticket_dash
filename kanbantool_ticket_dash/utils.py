@@ -140,8 +140,14 @@ def post_slack_message(slackclient, text):
     if current_app.config['SLACK_NOTIFY']:
         text = 'ATTN: {} '.format(current_app.config['SLACK_NOTIFY']) + text
 
-    return slackclient.api_call(
+    post = slackclient.api_call(
         'chat.postMessage',
-        channel=current_app.config['SLACK_TOKEN'],
-        text=text
+        channel=current_app.config['SLACK_CHANNEL'],
+        text=text,
+        as_user=True
     )
+
+    # Log slack response
+    print(post)
+
+    return post
