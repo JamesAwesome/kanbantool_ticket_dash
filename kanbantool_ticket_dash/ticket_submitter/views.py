@@ -18,6 +18,16 @@ def index():
 
         ticket = utils.create_ticket(title, description, submitted_by, due_date)
 
+        if current_app.config['SLACK_TOKEN']:
+            sc = utils.make_slackclient()
+            utils.post_slack_message(sc,
+                'Ticket: {}, {}: Has been Submitted by {}'.format(
+                    ticket['task']['id'],
+                    title,
+                    submitted_by
+                )
+            )
+
         return render_template(
             'ticket_submitter/thank_you.html',
             form=ticket_form,

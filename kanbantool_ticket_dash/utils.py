@@ -3,8 +3,9 @@ import os, json
 import arrow
 import requests
 from flask import current_app
-
+from slackclient import SlackClient
 from functools import lru_cache
+
 
 def fetch_tickets():
     r = requests.get(
@@ -126,3 +127,21 @@ def find_and_sort_wip(tickets, workflow_mapper, ticket_sorter):
 def find_and_sort_done_tickets(tickets, workflow_mapper, ticket_sorter):
     done_tickets = filter(lambda t: workflow_mapper[t['task']['workflow_stage_id']] in current_app.config['KANBANTOOL_DONE_LANES'], tickets)
     return sorted(done_tickets, key=ticket_sorter)
+
+
+def make_slackclient():
+    if not current_app.config['SLACK_TOKEN']:
+        raise BaseException('`SLACK_TOKEN` Not configured!')
+
+    return SlackClient(current_app.config['SLACK_TOKEN'])
+
+
+def post_slack_message(slackclient, text):
+    if current_app.config['SLACK_NOTIFY']:
+        text = 'ATTN: {} '.format(current_app.config['SLACK_NOTIFY']) + text
+
+    return slackclient.api_call(
+        'chat.postMessage',
+        channel=current_app.config['SLACK_TOKEN'],
+        text=text
+    )

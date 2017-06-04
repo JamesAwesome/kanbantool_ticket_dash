@@ -13,6 +13,9 @@ class Config:
     KANBANTOOL_WIP_LANES          = os.environ.get('KANBANTOOL_WIP_LANES') or ['Started', 'In Dev', 'In Prod']
     KANBANTOOL_DONE_LANES         = os.environ.get('KANBANTOOL_DONE_LANES') or ['Done']
     SECRET_KEY                    = os.environ.get('CSRF_SECRET_KEY')
+    SLACK_TOKEN                   = os.environ.get('SLACK_TOKEN') or False
+    SLACK_CHANNEL                 = os.environ.get('SLACK_CHANNEL') or '#general'
+    SLACK_NOTIFY                  = os.environ.get('SLACK_CHANNEL') or ''
 
 
 class TestingConfig(Config):

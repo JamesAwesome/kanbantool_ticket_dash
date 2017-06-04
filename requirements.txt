@@ -26,7 +26,9 @@ python-dateutil==2.6.0
 requests==2.14.2
 simplegeneric==0.8.1
 six==1.10.0
+slackclient==1.0.5
 traitlets==4.3.2
 wcwidth==0.1.7
+websocket-client==0.40.0
 Werkzeug==0.12.2
 WTForms==2.1
