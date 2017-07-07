@@ -16,6 +16,8 @@ class Config:
     SLACK_TOKEN                   = os.environ.get('SLACK_TOKEN') or False
     SLACK_CHANNEL                 = os.environ.get('SLACK_CHANNEL') or '#general'
     SLACK_NOTIFY                  = os.environ.get('SLACK_NOTIFY') or False
+    IOTD                          = os.environ.get('IOTD') or False
+    MOTD                          = os.environ.get('MOTD') or False
 
 
 class TestingConfig(Config):

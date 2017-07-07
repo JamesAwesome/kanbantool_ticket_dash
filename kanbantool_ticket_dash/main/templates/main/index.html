@@ -9,6 +9,14 @@
 {% block content %}
   <h1>Ticket Dashboard</h1>
   <center>
+    {% if motd %}
+      {{ motd }}
+      <p>
+    {% endif %}
+    {% if iotd %}
+      <img src={{ iotd }} alt="iotd">
+      <p>
+    {% endif %}
     <table>
       <tbody>
         <tr>
