@@ -1,0 +1,22 @@
+version: '3'
+services:
+  app:
+    build:
+      context: .
+    ports:
+      - 8000:8000
+    volumes:
+      - ./:/srv/kanbantool_ticket_dash
+    environment:
+      - KANBANTOOL_API_KEY=
+      - KANBANTOOL_ORG=
+      - KANBANTOOL_BOARD_ID=
+      - KANBANTOOL_UNSTARTED_LANES=['Bullpen', 'On Deck', 'Ready / To-Do']
+      - KANBANTOOL_WIP_LANES=['Started', 'Testing', 'In Prod']
+      - KANBANTOOL_DONE_LANES=['Done']
+      - CSRF_SECRET_KEY=
+      - SLACK_TOKEN=
+      - SLACK_CHANNEL="#devops"
+      - SLACK_NOTIFY=True
+      - IOTD=False
+      - MOTD=False
