@@ -97,3 +97,6 @@ ENV/
 
 # mypy
 .mypy_cache/
+
+# Ignore so we can inject secrets
+docker-compose.yml

@@ -22,7 +22,10 @@ def fetch_tickets():
     tickets = json.loads(r.text)
 
     for ticket in tickets:
-        ticket['task']['created_at'] = arrow.get(ticket['task']['created_at'])
+        # Creating task key, because the rest of the app depends on it.
+        # This was added due to a change of the kanbantool api
+        ticket['task'] = ticket;
+        ticket['task']['created_at'] = arrow.get(ticket['created_at']);
 
     return tickets
 

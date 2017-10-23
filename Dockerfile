@@ -1,4 +1,4 @@
-FROM python:wheezy
+FROM python:3.4.3-wheezy
 
 RUN apt-get update -y && apt-get install wget -y && apt-get clean
 RUN wget https://github.com/Yelp/dumb-init/releases/download/v1.2.0/dumb-init_1.2.0_amd64.deb
