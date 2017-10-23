@@ -23,6 +23,7 @@ def fetch_tickets():
 
     for ticket in tickets:
         # Creating task key, because the rest of the app depends on it.
+        # This was added due to a change of the kanbantool api
         ticket['task'] = ticket;
         ticket['task']['created_at'] = arrow.get(ticket['created_at']);
 
